@@ -1,1 +1,10 @@
 FROM node:alpine
+
+RUN
+	cd $HOME && \
+	mkdir foundryvtt && \
+	mkdir foundrydata && \
+	cd foundryvtt && \
+	wget -O foundryvtt.zip "<foundry-website-download-url>" && \
+	unzip foundryvtt.zip && \
+	node resources/app/main.js --dataPath=$HOME/foundrydata
