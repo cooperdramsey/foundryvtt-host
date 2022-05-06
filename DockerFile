@@ -2,16 +2,18 @@ FROM node:alpine
 
 ARG FOUNDRY_RELEASE_URL
 
+ENV ARCHIVE="foundryvtt.zip"
+
 WORKDIR $HOME/foundrydata
 WORKDIR $HOME/foundryvtt
 
 RUN apk add --no-cache wget unzip && \
-	wget -O foundryvtt.zip "${FOUNDRY_RELEASE_URL}"
-	
-RUN unzip foundryvtt.zip  && \
-	node resources/app/main.js --dataPath=$HOME/foundrydata
+	wget -O ${ARCHIVE} "${FOUNDRY_RELEASE_URL}" && \
+	unzip ${ARCHIVE}
 	
 VOLUME ["/data"]
 
 EXPOSE 80/TCP
-EXPOSE 443/TCP
+
+CMD ["resources/app/main.js", "--port=80", "--headless", "--noupdate",\
+  "--dataPath=$HOME/foundrydata"]

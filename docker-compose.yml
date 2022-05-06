@@ -1,19 +1,11 @@
-version: "3.8"
-
 services:
   foundry:
-    image: <my image>
+    image: cooperdramsey/foundryvtt:latest
     hostname: cooperdev-foundry.azurewebsites.net
     init: true
     restart: always
     volumes:
-      - ${WEBAPP_STORAGE_HOME}/Data:/data
+      - fvttbackend:/foundrydata
     environment:
-      - FOUNDRY_PASSWORD=YourFoundryPassword
-      - FOUNDRY_USERNAME=YourFoundryUsername
-      - FOUNDRY_ADMIN_KEY=YourFoundryVTTAdminPassword
-      - CONTAINER_CACHE=/data/cache
-      - CONTAINER_PRESERVE_OWNER=^.*data.*$
-      - CONTAINER_PATCHES=/data/patches
       - CONTAINER_PRESERVE_CONFIG=true
       - CONTAINER_VERBOSE=true
