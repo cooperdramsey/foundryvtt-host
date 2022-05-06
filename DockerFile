@@ -1,3 +1,5 @@
+ARG FOUNDRY_RELEASE_URL
+
 FROM node:alpine
 
 RUN
@@ -5,6 +7,11 @@ RUN
 	mkdir foundryvtt && \
 	mkdir foundrydata && \
 	cd foundryvtt && \
-	wget -O foundryvtt.zip "<foundry-website-download-url>" && \
+	wget -O foundryvtt.zip "${FOUNDRY_RELEASE_URL}" && \
 	unzip foundryvtt.zip && \
 	node resources/app/main.js --dataPath=$HOME/foundrydata
+	
+VOLUME ["/data"]
+
+EXPOSE 80/TCP
+EXPOSE 443/TCP
