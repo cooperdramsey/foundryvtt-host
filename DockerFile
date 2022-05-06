@@ -1,14 +1,14 @@
-ARG FOUNDRY_RELEASE_URL
-
 FROM node:alpine
 
-RUN
-	cd $HOME && \
-	mkdir foundryvtt && \
-	mkdir foundrydata && \
-	cd foundryvtt && \
-	wget -O foundryvtt.zip "${FOUNDRY_RELEASE_URL}" && \
-	unzip foundryvtt.zip && \
+ARG FOUNDRY_RELEASE_URL
+
+WORKDIR $HOME/foundrydata
+WORKDIR $HOME/foundryvtt
+
+RUN apk add --no-cache wget unzip && \
+	wget -O foundryvtt.zip "${FOUNDRY_RELEASE_URL}"
+	
+RUN unzip foundryvtt.zip  && \
 	node resources/app/main.js --dataPath=$HOME/foundrydata
 	
 VOLUME ["/data"]
