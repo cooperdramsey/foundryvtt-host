@@ -4,7 +4,6 @@ ARG FOUNDRY_RELEASE_URL
 
 ENV ARCHIVE="foundryvtt.zip"
 
-WORKDIR $HOME/foundrydata
 WORKDIR $HOME/foundryvtt
 
 RUN apk add --no-cache wget unzip && \
@@ -16,4 +15,4 @@ VOLUME ["/data"]
 EXPOSE 80/TCP
 
 CMD ["resources/app/main.js", "--port=80", "--headless", "--noupdate",\
-  "--dataPath=$HOME/foundrydata"]
+  "--dataPath=/data"]
