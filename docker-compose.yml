@@ -5,7 +5,7 @@ services:
     init: true
     restart: always
     volumes:
-      - fvttbackend:/foundrydata
+      - fvttbackend:/data
     environment:
       - CONTAINER_PRESERVE_CONFIG=true
       - CONTAINER_VERBOSE=true
