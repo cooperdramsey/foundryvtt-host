@@ -15,5 +15,5 @@ VOLUME ["/data"]
 EXPOSE 80/TCP
 EXPOSE 443/TCP
 
-CMD ["resources/app/main.js", "--port=80", "--headless", "--noupdate",\
+ENTRYPOINT ["resources/app/main.js", "--port=80", "--headless", "--noupdate",\
   "--dataPath=/data"]
