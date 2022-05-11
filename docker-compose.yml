@@ -9,3 +9,4 @@ services:
     environment:
       - CONTAINER_PRESERVE_CONFIG=true
       - CONTAINER_VERBOSE=true
+      - NODE_ENV=production
