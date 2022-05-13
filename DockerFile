@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:alpine AS build
 
 ARG FOUNDRY_RELEASE_URL
 
@@ -8,8 +8,17 @@ WORKDIR $HOME/foundryvtt
 
 RUN apk add --no-cache wget unzip && \
 	wget -O ${ARCHIVE} "${FOUNDRY_RELEASE_URL}" && \
-	unzip ${ARCHIVE}
+	unzip -q ${ARCHIVE} && \
+	rm ${ARCHIVE}
 	
+FROM node:alpine
+
+ENV NODE_ENV="production"
+
+COPY --from=build $HOME/foundryvtt $HOME/foundryvtt
+
+WORKDIR $HOME/foundryvtt
+
 VOLUME ["/data"]
 
 EXPOSE 80/TCP
